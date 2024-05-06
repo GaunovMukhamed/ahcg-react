@@ -38,6 +38,4 @@ export const characterSlice = createSlice({
 
 export const { setCharacterStats } = characterSlice.actions
 
-export const getCharacterStats = (state: RootState) => state.map.mapObjects
-
 export default characterSlice.reducer

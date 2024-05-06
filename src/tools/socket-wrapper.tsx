@@ -3,10 +3,8 @@ import { Socket, io } from 'socket.io-client';
 import { getCharacterFromStorage, getLoginFromStorage } from './general.tools';
 import { NotificationMessage, SocketMessage } from '../models';
 import { useAppDispatch } from '../store/store';
-import { setMapObjects } from '../store/slices/map.slice';
 import { showError, showInfo } from './axios.interceptor';
 import { setCharacterStats } from '../store/slices/character.slice';
-import { showTavern } from '../store/slices/locations.slice';
 import { Image } from 'primereact/image';
         
 let socket: Socket | undefined;
@@ -35,24 +33,10 @@ const SocketWrapper = ({ children }) => {
     });
   }, [])
 
-  const showLocation = (locName: string): void => {
-    switch(locName) {
-      case 'таверна':
-        dispatch(showTavern())
-        break;
-    }
-  }
-
   const socketMessageProcessor = (msg: SocketMessage): void => {
     switch(msg.type) {
       case 'character':
         dispatch(setCharacterStats(msg.message));
-        break;
-      case 'map':
-        dispatch(setMapObjects(msg.message));
-        break;
-      case 'location':
-        showLocation(msg.message)
         break;
       case 'notification':
         const notif: NotificationMessage = msg.message;
