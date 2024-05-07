@@ -17,8 +17,8 @@ const Scroller: React.FC<ScrollerProps> = ({ className = '', children }) => {
   }, []);
 
   return(
-    <div ref={containerRef} className={className}>
-      <ScrollPanel style={{ height: `${height}px` }} className='w-full'>
+    <div ref={containerRef} className={'w-full h-full '+className}>
+      <ScrollPanel style={{ height: `${height}px` }} className='w-full h-full'>
         {children}
       </ScrollPanel>
     </div>

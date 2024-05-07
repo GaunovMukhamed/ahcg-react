@@ -4,7 +4,6 @@ import { getLoginFromStorage } from './general.tools';
 import { NotificationMessage, SocketMessage } from '../models';
 import { useAppDispatch } from '../store/store';
 import { showError, showInfo } from './axios.interceptor';
-import { setCharacterStats } from '../store/slices/character.slice';
 import { Image } from 'primereact/image';
 import { useNavigate } from 'react-router-dom';
         
@@ -46,9 +45,6 @@ const SocketWrapper = ({ children }) => {
 
   const socketMessageProcessor = (msg: SocketMessage): void => {
     switch(msg.type) {
-      case 'character':
-        dispatch(setCharacterStats(msg.message));
-        break;
       case 'notification':
         const notif: NotificationMessage = msg.message;
         switch(notif.type) {
@@ -71,10 +67,22 @@ const sendSocketMessage = (type: string, message: any): void => {
   }
 }
 
-const sendSocketMessageWithCallback = (type: string, message: any, responseFunc: (result: any) => void): void => {
+const sendSocketMessageWithCallback = async (type: string, message: any): Promise<any> => {
   if(socket) {
-    socket.emit(type, message, responseFunc);
+    return new Promise(resolve => {
+      socket!.emit(type, message, (result: any) => {
+        resolve(result)
+      });
+    })
   }
 }
+
+// async function doesSocketAgree(){
+//   await new Promise(resolve => {
+//     socket.emit('doesOtherSocketAgree', otherSocketId, (answer) => {
+//       resolve(answer);
+//     });      
+//   });
+// }
 
 export { SocketWrapper, sendSocketMessage, sendSocketMessageWithCallback };

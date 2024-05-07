@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import characterSlice from './slices/character.slice'
+import generalSlice from './slices/general.slice'
 
 export const store = configureStore({
   reducer: {
-    character: characterSlice,
+    general: generalSlice,
   },
 })
 
