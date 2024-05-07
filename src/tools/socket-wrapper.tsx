@@ -1,23 +1,26 @@
 import { useEffect } from 'react';
 import { Socket, io } from 'socket.io-client';
-import { getCharacterFromStorage, getLoginFromStorage } from './general.tools';
+import { getLoginFromStorage } from './general.tools';
 import { NotificationMessage, SocketMessage } from '../models';
 import { useAppDispatch } from '../store/store';
 import { showError, showInfo } from './axios.interceptor';
 import { setCharacterStats } from '../store/slices/character.slice';
 import { Image } from 'primereact/image';
+import { useNavigate } from 'react-router-dom';
         
 let socket: Socket | undefined;
 
 //@ts-ignore
 const SocketWrapper = ({ children }) => {
 
+  const navigate = useNavigate();
+
   const address: string = process.env.REACT_APP_API_ADDRESS!+'/images/';
 
   socket = io(process.env.REACT_APP_SOCKET_ADDRESS!, {
     transportOptions: {
       polling: {
-        extraHeaders: {"Authorization": `${getLoginFromStorage()}~/${getCharacterFromStorage()}`}
+        extraHeaders: {"Authorization": getLoginFromStorage()}
       },
     }
   });
@@ -31,6 +34,14 @@ const SocketWrapper = ({ children }) => {
     socket!.on('error', (msg: string) => {
       showError(msg);
     });
+    socket!.on('logout', (msg: SocketMessage) => {
+      localStorage.clear();
+      navigate("/");
+    });
+
+    return () => {
+      socket?.close();
+    }
   }, [])
 
   const socketMessageProcessor = (msg: SocketMessage): void => {
