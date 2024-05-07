@@ -22,13 +22,12 @@ const CharacterSelector: React.FC<any> = () => {
       style={{ width: '90vw', height: '90vh' }}
       onHide={()=>{}}>
       <Scroller>
-        <div className="w-full grid gap-2">
+        <div className="w-full flex flex-wrap gap-2">
           {characters.map((ch: Character, i: number) => {
-            return <Card
-              key={i}
-              title={ch.name}
-              header={<Image src={ch.miniImg} alt="Image" width="250" />}
-              className="cursor-pointer col-3"></Card>
+            return <div key={i} className="shadow-6 surface-100 p-1 border-round cursor-pointer">
+              <Image src={ch.miniImg} alt="Image" />
+              <div className="w-full text-center my-1">{ch.name}</div>
+            </div>
           })}
         </div>
       </Scroller>
