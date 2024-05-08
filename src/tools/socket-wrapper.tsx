@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { Socket, io } from 'socket.io-client';
 import { getLoginFromStorage } from './general.tools';
-import { NotificationMessage, SocketMessage } from '../models';
-import { useAppDispatch } from '../store/store';
 import { showError, showInfo } from './axios.interceptor';
 import { Image } from 'primereact/image';
 import { useNavigate } from 'react-router-dom';
+import { GameState } from '../store/slices/models';
+import { useAppDispatch } from '../store/store';
+import { updateState } from '../store/slices/general.slice';
         
 let socket: Socket | undefined;
 
@@ -13,6 +14,7 @@ let socket: Socket | undefined;
 const SocketWrapper = ({ children }) => {
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const address: string = process.env.REACT_APP_API_ADDRESS!+'/images/';
 
@@ -24,16 +26,25 @@ const SocketWrapper = ({ children }) => {
     }
   });
 
-  const dispatch = useAppDispatch();
-
   useEffect(() => {
-    socket!.on('game', (msg: SocketMessage) => {
-      socketMessageProcessor(msg)
+    socket!.on('notification', (msg: any) => {
+      const notif: any = msg.message;
+      switch(notif.type) {
+        case 'gain':
+          showInfo(<div>Вы получили {notif.amount} <Image src={address+`items/${notif.item}.png`} width='12' height='12' /></div>);
+          break;
+        case 'lose':
+          showInfo(<div>Вы потеряли {notif.amount} <Image src={address+`items/${notif.item}.png`} width='12' height='12' /></div>);
+          break;
+      }
+    });
+    socket!.on('gameState', (msg: GameState) => {
+      dispatch(updateState(msg));
     });
     socket!.on('error', (msg: string) => {
       showError(msg);
     });
-    socket!.on('logout', (msg: SocketMessage) => {
+    socket!.on('logout', (msg: any) => {
       localStorage.clear();
       navigate("/");
     });
@@ -42,21 +53,6 @@ const SocketWrapper = ({ children }) => {
       socket?.close();
     }
   }, [])
-
-  const socketMessageProcessor = (msg: SocketMessage): void => {
-    switch(msg.type) {
-      case 'notification':
-        const notif: NotificationMessage = msg.message;
-        switch(notif.type) {
-          case 'gain':
-            showInfo(<div>Вы получили {notif.amount} <Image src={address+`items/${notif.item}.png`} width='12' height='12' /></div>);
-            break;
-          case 'lose':
-            showInfo(<div>Вы потеряли {notif.amount} <Image src={address+`items/${notif.item}.png`} width='12' height='12' /></div>);
-            break;
-        }
-    }
-  }
   
   return children;
 }
@@ -85,4 +81,4 @@ const sendSocketMessageWithCallback = async (type: string, message: any): Promis
 //   });
 // }
 
-export { SocketWrapper, sendSocketMessage, sendSocketMessageWithCallback };
+export { socket, SocketWrapper, sendSocketMessage, sendSocketMessageWithCallback };

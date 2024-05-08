@@ -2,10 +2,10 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { useEffect, useState } from 'react';
 import { loginUser } from './login.service';
-import { SuccessResponse } from '../../models';
 import { Spinner } from '../../components/spinner';
 import { getLoginFromStorage, saveLoginToStorage } from '../../tools/general.tools';
 import { useNavigate } from 'react-router-dom';
+import { MessageResponse } from '../../models';
         
 const LoginPage: React.FC = (props: any) => {
 
@@ -28,7 +28,7 @@ const LoginPage: React.FC = (props: any) => {
     event.preventDefault();
     setLoading(true);
     loginUser(login)
-      .then((response: SuccessResponse) => {
+      .then((response: MessageResponse) => {
         saveLoginToStorage(login);
         navigate("/game");
       })

@@ -1,6 +1,7 @@
 export interface GameState {
   allCharacters: Character[];
-  state: boolean | null; // started - true
+  gameStarted: boolean | null;
+  players: Players;
 }
 
 export interface Character {
@@ -15,4 +16,17 @@ export interface Character {
   backImg: string;
   frontImg: string;
   miniImg: string;
+}
+
+export interface Players {
+  [key: string]: Player;
+}
+
+export class Player {
+  character: Character | null = null;
+}
+
+export interface CharacterSelectionInfo {
+  newChId: number;
+  login: string;
 }

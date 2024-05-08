@@ -1,0 +1,7 @@
+.colorless {
+  filter: saturate(0);
+}
+
+.image {
+  transition: filter 0.5s;
+}

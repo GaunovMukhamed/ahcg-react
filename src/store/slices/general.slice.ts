@@ -1,25 +1,39 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { GameState } from './models';
+import { Character, CharacterSelectionInfo, GameState } from './models';
 import { sendSocketMessageWithCallback } from '../../tools/socket-wrapper';
 
 const initialState: GameState = {
   allCharacters: [],
-  state: null
+  gameStarted: null,
+  players: {}
 }
 
 export const generalSlice = createSlice({
   name: 'general',
   initialState,
-  reducers: {},
+  reducers: {
+    selectCharacter: (state, action: PayloadAction<CharacterSelectionInfo>) => {
+      state.players = {
+        ...state.players,
+        [action.payload.login]: {
+          character: state.allCharacters.find((ch: Character) => ch.id === action.payload.newChId)!
+        }
+      }
+    },
+    updateState: (state, action: PayloadAction<GameState>) => {
+      console.log(action.payload)
+      return action.payload;
+    }
+  },
   extraReducers: (builder: any) => {
-    builder.addCase(getInitialState.fulfilled, (state: GameState, action: any) => {
+    builder.addCase(getInitialState.fulfilled, (state: GameState, action: PayloadAction<GameState>) => {
       return action.payload;
     })
   }
 })
 
-// export const { getInitialState } = generalSlice.actions
+export const { updateState, selectCharacter } = generalSlice.actions
 
 export default generalSlice.reducer
 

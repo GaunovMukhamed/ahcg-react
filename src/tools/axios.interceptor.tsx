@@ -26,7 +26,7 @@ const AxiosInterceptor: React.FC<AxiosProps> = ({children}) => {
     (error: AxiosError) => {
       toast.current!.show({ severity: 'error', summary: 'Ошибка', detail: 
         error.response ?
-          (error.response.data! as any).message :
+          (error.response.data! as any).error :
           'Ошибка подключения к серверу' });
       return Promise.reject(error);
     }
