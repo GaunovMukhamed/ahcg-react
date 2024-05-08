@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Spinner } from "../../components/spinner";
 import { getInitialState } from "../../store/slices/general.slice";
 import { CharacterSelector } from "./components/character-selector/character-selector";
+import { ScenarioSelector } from "./components/scenario-selector/scenario-selector";
 
 const GamePage: React.FC<any> = () => {
 
@@ -15,9 +16,10 @@ const GamePage: React.FC<any> = () => {
   }, [])
 
   return(
-    <div className="w-full h-full bg-gray-900 relative flex flex-column">
-      {(gameState === 0)?<CharacterSelector />:''}
+    <div className="w-full h-full bg-gray-900 relative flex flex-column p-2">
       {gameState === null?<Spinner />:''}
+      {gameState === 0?<CharacterSelector />:''}
+      {gameState === 1?<ScenarioSelector />: ''}
     </div>
   )
 }

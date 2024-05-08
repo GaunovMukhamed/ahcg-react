@@ -5,7 +5,7 @@ import { Dialog } from 'primereact/dialog';
 import { Scroller } from "../../../../components/scroller";
 import { Image } from 'primereact/image';
 import { sendSocketMessage, socket } from "../../../../tools/socket-wrapper";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { selectCharacter } from "../../../../store/slices/general.slice";
 import { BlockUI } from 'primereact/blockui';
 import './character-selector.scss';

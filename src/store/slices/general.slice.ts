@@ -18,7 +18,8 @@ export const generalSlice = createSlice({
         ...state.players,
         [action.payload.login]: {
           character: state.allCharacters.find((ch: Character) => ch.id === action.payload.newChId)!,
-          ready: false
+          ready: false,
+          isHost: false
         }
       }
     },
