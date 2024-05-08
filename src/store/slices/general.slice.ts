@@ -22,7 +22,6 @@ export const generalSlice = createSlice({
       }
     },
     updateState: (state, action: PayloadAction<GameState>) => {
-      console.log(action.payload)
       return action.payload;
     }
   },
