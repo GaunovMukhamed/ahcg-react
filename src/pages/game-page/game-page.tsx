@@ -8,7 +8,7 @@ const GamePage: React.FC<any> = () => {
 
   const dispatch = useAppDispatch();
 
-  const gameStarted = useAppSelector((state) => state.general.gameStarted);
+  const gameState = useAppSelector((state) => state.general.gameState);
 
   useEffect(() => {
     dispatch(getInitialState())
@@ -16,8 +16,8 @@ const GamePage: React.FC<any> = () => {
 
   return(
     <div className="w-full h-full bg-gray-900 relative flex flex-column">
-      {(!gameStarted)?<CharacterSelector />:''}
-      {gameStarted === null?<Spinner />:''}
+      {(gameState === 0)?<CharacterSelector />:''}
+      {gameState === null?<Spinner />:''}
     </div>
   )
 }

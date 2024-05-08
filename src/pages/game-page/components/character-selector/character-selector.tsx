@@ -5,17 +5,20 @@ import { Dialog } from 'primereact/dialog';
 import { Scroller } from "../../../../components/scroller";
 import { Image } from 'primereact/image';
 import { sendSocketMessage, socket } from "../../../../tools/socket-wrapper";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { selectCharacter } from "../../../../store/slices/general.slice";
 import { BlockUI } from 'primereact/blockui';
 import './character-selector.scss';
 import { Button } from 'primereact/button';
+import { getLoginFromStorage } from "../../../../tools/general.tools";
+import { Spinner } from "../../../../components/spinner";
         
 const CharacterSelector: React.FC<any> = () => {
-
+  const login: string = getLoginFromStorage()!;
   const dispatch = useAppDispatch();
   const characters = useAppSelector((state) => state.general.allCharacters);
   const players = useAppSelector((state) => state.general.players);
+  const ready = useAppSelector((state) => state.general.players[getLoginFromStorage()!]?.ready??false);
 
   useEffect(() => {
     if(socket) {
@@ -30,6 +33,10 @@ const CharacterSelector: React.FC<any> = () => {
     return false;
   }
 
+  const toggleReady = (value: boolean): void => {
+    sendSocketMessage('setReady', value);
+  }
+
   return(
     <Dialog
       header="Выбор персонажа"
@@ -40,7 +47,7 @@ const CharacterSelector: React.FC<any> = () => {
       onHide={()=>{}}>
       <div className="w-full h-full flex flex-column justify-content-between">
         <Scroller style={{ height: 'calc(100% - 4rem)' }}>
-          <div className="w-full flex flex-wrap gap-2">
+          <div className="relative w-full flex flex-wrap gap-2">
             {characters.map((ch: Character, i: number) => {
               return <BlockUI key={i} blocked={characterBlocked(ch.id)} template={<i className="pi pi-lock"/>}>
                 <div className="shadow-6 surface-100 p-1 border-round cursor-pointer" onClick={() => sendSocketMessage('selectCharacter', ch.id)}>
@@ -49,9 +56,13 @@ const CharacterSelector: React.FC<any> = () => {
                 </div>
               </BlockUI>           
             })}
+            {ready ? <Spinner /> : ''}
           </div>
         </Scroller>
-        <Button label="Готово" className="w-full mt-2" />
+        {ready ?
+          <Button label="Отмена" className="w-full mt-2" severity="danger" onClick={() => toggleReady(false)} /> :
+          <Button label="Готово" disabled={players[login] && !players[login].character} className="w-full mt-2" onClick={() => toggleReady(true)} />
+        }
       </div>
     </Dialog>
   )

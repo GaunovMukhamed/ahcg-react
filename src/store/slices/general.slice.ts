@@ -5,7 +5,7 @@ import { sendSocketMessageWithCallback } from '../../tools/socket-wrapper';
 
 const initialState: GameState = {
   allCharacters: [],
-  gameStarted: null,
+  gameState: 0,
   players: {}
 }
 
@@ -17,7 +17,8 @@ export const generalSlice = createSlice({
       state.players = {
         ...state.players,
         [action.payload.login]: {
-          character: state.allCharacters.find((ch: Character) => ch.id === action.payload.newChId)!
+          character: state.allCharacters.find((ch: Character) => ch.id === action.payload.newChId)!,
+          ready: false
         }
       }
     },

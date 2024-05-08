@@ -1,6 +1,6 @@
 export interface GameState {
   allCharacters: Character[];
-  gameStarted: boolean | null;
+  gameState: null|0|1|2;
   players: Players;
 }
 
@@ -24,6 +24,7 @@ export interface Players {
 
 export class Player {
   character: Character | null = null;
+  ready: boolean = false;
 }
 
 export interface CharacterSelectionInfo {
