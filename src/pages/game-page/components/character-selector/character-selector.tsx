@@ -37,6 +37,10 @@ const CharacterSelector: React.FC<any> = () => {
     sendSocketMessage('setReady', value);
   }
 
+  const getLoginByCharacter = (chId: number): string => {
+    return Object.keys(players).find((login: string) => players[login] && players[login].character && players[login].character!.id === chId)!;
+  }
+
   return(
     <Dialog
       header="Выбор персонажа"
@@ -49,7 +53,12 @@ const CharacterSelector: React.FC<any> = () => {
         <Scroller style={{ height: 'calc(100% - 4rem)' }}>
           <div className="relative w-full flex flex-wrap gap-2">
             {characters.map((ch: Character, i: number) => {
-              return <BlockUI key={i} blocked={characterBlocked(ch.id)} template={<i className="pi pi-lock"/>}>
+              return <BlockUI key={i} blocked={characterBlocked(ch.id)} template={
+                <div className="flex flex-column justify-content-center align-items-center">
+                  <i className="pi pi-lock"/>
+                  <span>{getLoginByCharacter(ch.id)}</span>
+                </div>
+              }>
                 <div className="shadow-6 surface-100 p-1 border-round cursor-pointer" onClick={() => sendSocketMessage('selectCharacter', ch.id)}>
                   <Image src={ch.miniImg} alt="Image" className={'image ' + (characterBlocked(ch.id) ? 'colorless' : '')} />
                   <div className="w-full text-center my-1">{ch.name}</div>
