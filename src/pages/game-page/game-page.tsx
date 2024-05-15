@@ -4,6 +4,7 @@ import { Spinner } from "../../components/spinner";
 import { getInitialState } from "../../store/slices/general.slice";
 import { CharacterSelector } from "./components/character-selector/character-selector";
 import { ScenarioSelector } from "./components/scenario-selector/scenario-selector";
+import { GameScene } from "./components/game-scene/game-scene";
 
 const GamePage: React.FC<any> = () => {
 
@@ -20,6 +21,7 @@ const GamePage: React.FC<any> = () => {
       {gameState === null?<Spinner />:''}
       {gameState === 0?<CharacterSelector />:''}
       {gameState === 1?<ScenarioSelector />: ''}
+      {gameState === 2?<GameScene />:''}
     </div>
   )
 }

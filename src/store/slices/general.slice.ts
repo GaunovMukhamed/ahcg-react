@@ -5,7 +5,7 @@ import { sendSocketMessageWithCallback } from '../../tools/socket-wrapper';
 
 const initialState: GameState = {
   allCharacters: [],
-  gameState: 0,
+  gameState: null,
   players: {}
 }
 

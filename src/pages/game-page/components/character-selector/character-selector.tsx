@@ -60,7 +60,7 @@ const CharacterSelector: React.FC<any> = () => {
                 </div>
               }>
                 <div className="shadow-6 surface-100 p-1 border-round cursor-pointer" onClick={() => sendSocketMessage('selectCharacter', ch.id)}>
-                  <Image src={ch.miniImg} alt="Image" className={'image ' + (characterBlocked(ch.id) ? 'colorless' : '')} />
+                  <Image src={ch.miniImg} alt="Image" width="140" height="220" className={'image ' + (characterBlocked(ch.id) ? 'colorless' : '')} />
                   <div className="w-full text-center my-1">{ch.name}</div>
                 </div>
               </BlockUI>           
