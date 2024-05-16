@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style }) => {
       style={style}
       className={`card ${characterCardFlipped?'flipped':''} ${className??''}`}
       onClick={() => setCharacterCardFlipped(!characterCardFlipped)}>
-      <div className='player-card-front'>
+      <div className='w-full h-full player-card-front'>
         <Image
           src={frontImg}
           width={'100%'}
@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style }) => {
           alt="character-card"
           />
       </div>
-      <div className='player-card-back'>
+      <div className='w-full h-full player-card-back'>
         <Image
           src={backImg}
           width={'100%'}
