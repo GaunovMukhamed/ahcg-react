@@ -9,7 +9,7 @@ const CharacterPanel: React.FC<any> = () => {
   const characterInfo = useAppSelector((state) => state.general.players[login]);
 
   return(
-    <div>
+    <div className='pt-2 border-top-1 border-primary'>
       <Card
         className='w-20rem h-14rem'
         frontImg={characterInfo.character?.frontImg??''}

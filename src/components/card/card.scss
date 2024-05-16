@@ -15,10 +15,12 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  // border-radius: var(--border-radius);
 }
 
 .player-card-back {
   position: absolute;
   backface-visibility: hidden;
   transform: rotateY(180deg);
+  // border-radius: var(--border-radius);
 }
