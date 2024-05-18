@@ -53,3 +53,7 @@ body {
 .grid {
   margin: 0;
 }
+
+.monochrome {
+  filter: grayscale(1);
+}

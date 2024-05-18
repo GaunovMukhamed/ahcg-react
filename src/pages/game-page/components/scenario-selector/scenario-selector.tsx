@@ -43,7 +43,7 @@ const ScenarioSelector: React.FC<any> = () => {
       draggable={false}
       visible={true}
       closable={false}
-      style={{ width: '90vw', height: '90vh' }}
+      style={{ width: '95vw', height: '90vh' }}
       onHide={()=>{}}>
       <div className='w-full h-full flex flex-column justify-content-between'>
         <Scroller style={{ height: hostLogin === login?'calc(100% - 4rem)':'100%' }}>

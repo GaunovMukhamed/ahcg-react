@@ -1,6 +1,6 @@
 export interface GameState {
   allCharacters: Character[];
-  gameState: null|0|1|2;
+  gameState: null|0|1|2|3;
   players: Players;
 }
 

@@ -5,19 +5,24 @@ import { Image } from 'primereact/image';
 interface CardProps {
   frontImg: string;
   backImg: string;
+  enabled?: boolean; 
+  turnable?: boolean;
   className?: string;
-  style?: CSSProperties;
+  style?: CSSProperties; 
 }
 
-const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style }) => {
+const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnable = true, enabled = true }) => {
 
   const [characterCardFlipped, setCharacterCardFlipped] = useState<Boolean>(false);
 
   return(
     <div
       style={style}
-      className={`card ${characterCardFlipped?'flipped':''} ${className??''}`}
-      onClick={() => setCharacterCardFlipped(!characterCardFlipped)}>
+      className={`card 
+        ${characterCardFlipped?'flipped':''} 
+        ${enabled?'':'monochrome'} 
+        ${className??''}`}
+      onClick={() => {if(turnable) setCharacterCardFlipped(!characterCardFlipped)}}>
       <div className='w-full h-full player-card-front border-round'>
         <Image
           src={frontImg}

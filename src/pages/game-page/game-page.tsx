@@ -5,6 +5,7 @@ import { getInitialState } from "../../store/slices/general.slice";
 import { CharacterSelector } from "./components/character-selector/character-selector";
 import { ScenarioSelector } from "./components/scenario-selector/scenario-selector";
 import { GameScene } from "./components/game-scene/game-scene";
+import { DeckBuilder } from "./components/deck-builder/deck-builder";
 
 const GamePage: React.FC<any> = () => {
 
@@ -21,7 +22,8 @@ const GamePage: React.FC<any> = () => {
       {gameState === null?<Spinner />:''}
       {gameState === 0?<CharacterSelector />:''}
       {gameState === 1?<ScenarioSelector />: ''}
-      {gameState === 2?<GameScene />:''}
+      {gameState === 2?<DeckBuilder />:''}
+      {gameState === 3?<GameScene />:''}
     </div>
   )
 }
