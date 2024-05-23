@@ -30,7 +30,15 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
         const newDecks: Decks = {...decks};
         newDecks[cardItem.type].find((card: GameCard) => card.id === cardItem.id)!.enabled = false;
         setDecks(newDecks);
-        setSelectedCards([...selectedCards, {...cardItem, enabled: true}]);
+        setSelectedCards([...selectedCards, {...cardItem, enabled: true}].sort((a: GameCard, b: GameCard) => {
+          if ( a.type < b.type ){
+            return -1;
+          }
+          if ( a.type > b.type ){
+            return 1;
+          }
+          return 0;
+        }));
       }
     }
   }
