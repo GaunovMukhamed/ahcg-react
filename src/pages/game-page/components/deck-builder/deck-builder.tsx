@@ -71,7 +71,7 @@ const DeckBuilder: React.FC<any> = () => {
       <div ref={containerRef} className='w-full h-full flex justify-content-between'>
         <Scroller className="w-full h-full">
           <Accordion className="w-full" activeIndex={0}>
-            <AccordionTab header="Ваша колода">
+            <AccordionTab header={`Ваша колода (${selectedCards.length})`}>
               {selectedCards.length ? <CardsMenu cards={selectedCards} addRemoveCard={removeCard} /> : 'Нет карт'}
             </AccordionTab>
              {Object.entries(decks).map(([name, deckCards]:[string, GameCard[]], i: number) => {
