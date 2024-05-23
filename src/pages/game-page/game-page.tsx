@@ -22,7 +22,7 @@ const GamePage: React.FC<any> = () => {
       {gameState === null?<Spinner />:''}
       {gameState === 0?<CharacterSelector />:''}
       {gameState === 1?<ScenarioSelector />: ''}
-      {gameState === 2?<DeckBuilder />:''}
+      {gameState === 2?<DeckBuilder maxCardsCount={30} />:''}
       {gameState === 3?<GameScene />:''}
     </div>
   )

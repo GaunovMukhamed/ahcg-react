@@ -7,21 +7,31 @@ import { Scroller } from "../../../../components/scroller";
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { CardsMenu } from "./cards-menu";
 
-const DeckBuilder: React.FC<any> = () => {
+interface DeckBuilderProps {
+  maxCardsCount?: number
+}
+
+const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
 
   const [selectedCards, setSelectedCards] = useState<GameCard[]>([]);
   const [decks, setDecks] = useState<Decks>({});
 
   const containerRef = useRef<any>();
 
+  useEffect(() => {
+    getCardsLists();
+  }, [])
+
   const addRemoveCard = (cardItem: GameCard, addToPlayerDeck: boolean): void => { //add false - remove
     if(addToPlayerDeck === false) {
       removeCard(cardItem, addToPlayerDeck);
     } else {
-      const newDecks: Decks = {...decks};
-      newDecks[cardItem.type].find((card: GameCard) => card.id === cardItem.id)!.enabled = false;
-      setDecks(newDecks);
-      setSelectedCards([...selectedCards, {...cardItem, enabled: true}]);
+      if(!maxCardsCount || (selectedCards.length < maxCardsCount)) {
+        const newDecks: Decks = {...decks};
+        newDecks[cardItem.type].find((card: GameCard) => card.id === cardItem.id)!.enabled = false;
+        setDecks(newDecks);
+        setSelectedCards([...selectedCards, {...cardItem, enabled: true}]);
+      }
     }
   }
 
@@ -47,10 +57,6 @@ const DeckBuilder: React.FC<any> = () => {
     }
   }
 
-  useEffect(() => {
-    getCardsLists();
-  }, [])
-
   const getCardsLists = (): void => {
     sendSocketMessageWithCallback('getDeckBuilderCards', '').then((result: DeckBuilderInfo) => {
       const decks: Decks = result.decks;
@@ -71,7 +77,7 @@ const DeckBuilder: React.FC<any> = () => {
       <div ref={containerRef} className='w-full h-full flex justify-content-between'>
         <Scroller className="w-full h-full">
           <Accordion className="w-full" activeIndex={0}>
-            <AccordionTab header={`Ваша колода (${selectedCards.length})`}>
+            <AccordionTab header={`Ваша колода `+(maxCardsCount?`(${selectedCards.length}/${maxCardsCount})`:`(${selectedCards.length})`)}>
               {selectedCards.length ? <CardsMenu cards={selectedCards} addRemoveCard={removeCard} /> : 'Нет карт'}
             </AccordionTab>
              {Object.entries(decks).map(([name, deckCards]:[string, GameCard[]], i: number) => {
