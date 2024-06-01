@@ -1,12 +1,13 @@
 import { Dialog } from "primereact/dialog";
 import { useEffect, useRef, useState } from "react";
-import { sendSocketMessageWithCallback } from "../../../../tools/socket-wrapper";
+import { sendSocketMessage, sendSocketMessageWithCallback } from "../../../../tools/socket-wrapper";
 import { DeckBuilderInfo, Decks } from "./models";
 import { GameCard } from "../../models";
 import { Scroller } from "../../../../components/scroller";
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { CardsMenu } from "./cards-menu";
-
+import { Button } from 'primereact/button';
+        
 interface DeckBuilderProps {
   maxCardsCount?: number
 }
@@ -74,6 +75,11 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
     })
   }
 
+  const toggleReady = (value: boolean): void => {
+    sendSocketMessage('cardsSelection', selectedCards.map((card: GameCard) => ({ id: card.id, type: card.type })));
+    sendSocketMessage('setReady', value);
+  }
+
   return(
     <Dialog
       header={"Выберите карты для вашей колоды"}
@@ -82,7 +88,7 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
       closable={false}
       style={{ width: '95vw', height: '90vh' }}
       onHide={()=>{}}>
-      <div ref={containerRef} className='w-full h-full flex justify-content-between'>
+      <div ref={containerRef} className='w-full h-full flex flex-column justify-content-between'>
         <Scroller className="w-full h-full">
           <Accordion className="w-full" activeIndex={0}>
             <AccordionTab header={`Ваша колода `+(maxCardsCount?`(${selectedCards.length}/${maxCardsCount})`:`(${selectedCards.length})`)}>
@@ -95,7 +101,7 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
               })}
           </Accordion>
         </Scroller>
-       
+        <Button label="Готово" onClick={() => toggleReady(true)} />
       </div>
     </Dialog>
   )
