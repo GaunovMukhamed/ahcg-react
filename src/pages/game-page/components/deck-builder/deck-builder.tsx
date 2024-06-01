@@ -7,6 +7,7 @@ import { Scroller } from "../../../../components/scroller";
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { CardsMenu } from "./cards-menu";
 import { Button } from 'primereact/button';
+import { Spinner } from "../../../../components/spinner";
         
 interface DeckBuilderProps {
   maxCardsCount?: number
@@ -16,6 +17,7 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
 
   const [selectedCards, setSelectedCards] = useState<GameCard[]>([]);
   const [decks, setDecks] = useState<Decks>({});
+  const [ready, setReady] = useState<boolean>(false);
 
   const containerRef = useRef<any>();
 
@@ -76,7 +78,8 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
   }
 
   const toggleReady = (value: boolean): void => {
-    sendSocketMessage('cardsSelection', selectedCards.map((card: GameCard) => ({ id: card.id, type: card.type })));
+    setReady(value);
+    if(value === true) sendSocketMessage('cardsSelection', selectedCards.map((card: GameCard) => ({ id: card.id, type: card.type })));
     sendSocketMessage('setReady', value);
   }
 
@@ -100,8 +103,12 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
               </AccordionTab>
               })}
           </Accordion>
+          {ready ? <Spinner /> : ''}
         </Scroller>
-        <Button label="Готово" onClick={() => toggleReady(true)} />
+        {ready ?
+          <Button label="Отмена" severity="danger" onClick={() => toggleReady(false)} /> :
+          <Button label="Готово" onClick={() => toggleReady(true)} />
+        }
       </div>
     </Dialog>
   )
