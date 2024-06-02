@@ -96,12 +96,12 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
       style={{ width: '95vw', height: '90vh' }}
       onHide={()=>{}}>
       <div ref={containerRef} className='w-full h-full flex flex-column justify-content-between'>
-        <Scroller className="w-full h-full">
+        <Scroller className="w-full h-full mb-2 relative overflow-auto">
           <Accordion className="w-full" activeIndex={0}>
             <AccordionTab header={`Ваша колода `+(maxCardsCount?`(${selectedCards.length}/${maxCardsCount})`:`(${selectedCards.length})`)}>
               {selectedCards.length ? <CardsMenu cards={selectedCards} addRemoveCard={removeCard} /> : 'Нет карт'}
             </AccordionTab>
-             {Object.entries(decks).map(([name, deckCards]:[string, GameCard[]], i: number) => {
+            {Object.entries(decks).map(([name, deckCards]:[string, GameCard[]], i: number) => {
               return <AccordionTab key={i} header={rusDeckName(name)}>
                 <CardsMenu cards={deckCards} addRemoveCard={addRemoveCard} />
               </AccordionTab>
