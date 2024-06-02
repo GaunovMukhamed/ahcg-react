@@ -65,6 +65,8 @@ const DeckBuilder: React.FC<DeckBuilderProps> = ({ maxCardsCount }) => {
         return "Мистик"
       case "dodger":
         return "Ловкач"
+      case "survivor":
+        return "Выживший"
       default:
         return engDeckName;
     }
