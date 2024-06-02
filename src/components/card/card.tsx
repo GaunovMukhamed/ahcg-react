@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, SyntheticEvent, useState } from "react";
 import './card.scss';
 import { Image } from 'primereact/image';
 
@@ -15,20 +15,25 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnab
 
   const [characterCardFlipped, setCharacterCardFlipped] = useState<Boolean>(false);
 
+  const flipCard = (event: any) => {
+    if(turnable && event.target.tagName === 'IMG') setCharacterCardFlipped(!characterCardFlipped);
+  }
+
   return(
     <div
       style={style}
-      className={`card 
+      className={`card relative 
         ${characterCardFlipped?'flipped':''} 
         ${enabled?'':'monochrome'} 
         ${className??''}`}
-      onClick={() => {if(turnable) setCharacterCardFlipped(!characterCardFlipped)}}>
+      onClick={flipCard}>
       <div className='w-full h-full player-card-front border-round'>
         <Image
           src={frontImg}
           width={'100%'}
           height={'100%'}
           alt="character-card"
+          preview
           />
       </div>
       <div className='w-full h-full player-card-back'>
@@ -37,6 +42,7 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnab
           width={'100%'}
           height={'100%'}
           alt="character-card"
+          preview
           />
       </div>
     </div>

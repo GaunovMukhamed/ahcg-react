@@ -24,3 +24,17 @@
   transform: rotateY(180deg);
   // border-radius: var(--border-radius);
 }
+
+.p-image-preview-container > .p-image-preview-indicator {
+  position: absolute !important;
+  top: 5px !important;
+  left: 5px !important;
+  background-color: var(--surface-ground) !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  font-size: 15px !important;
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  cursor: pointer !important;
+}
