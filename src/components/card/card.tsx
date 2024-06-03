@@ -25,7 +25,8 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnab
     return <div
       className="relative w-full h-full" 
       onMouseEnter={() => setcardFocused(true)}
-      onMouseLeave={() => setcardFocused(false)}>
+      onMouseLeave={() => setcardFocused(false)}
+      onBlur={() => setcardFocused(false)}>
       <Image
         src={url}
         width={'100%'}

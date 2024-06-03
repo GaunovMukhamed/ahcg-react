@@ -11,7 +11,7 @@ const CharacterPanel: React.FC<any> = () => {
   return(
     <div className='pt-2 border-top-1 border-primary'>
       <Card
-        className='w-20rem h-14rem'
+        className='w-14rem h-10rem'
         frontImg={characterInfo.character?.frontImg??''}
         backImg={characterInfo.character?.backImg??''} />     
     </div>
