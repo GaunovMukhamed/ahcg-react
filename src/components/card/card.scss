@@ -25,9 +25,10 @@
   // border-radius: var(--border-radius);
 }
 
+.card-button,
 .p-image-preview-container > .p-image-preview-indicator {
   position: absolute !important;
-  top: 5px !important;
+  top: 5px;
   left: 5px !important;
   background-color: var(--surface-ground) !important;
   width: 2rem !important;
@@ -37,4 +38,5 @@
   border: 1px solid var(--primary-color) !important;
   color: var(--primary-color) !important;
   cursor: pointer !important;
+  transition: opacity .3s;
 }
