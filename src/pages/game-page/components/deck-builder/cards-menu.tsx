@@ -10,15 +10,14 @@ interface CardsMenuProps {
 const CardsMenu: React.FC<CardsMenuProps> = ({ cards, addRemoveCard }) => {
 
   const cardItem = (cardItem: GameCard): ReactNode => {
-    return <div
-      className="w-full h-full flex justify-content-center align-items-center"
-      onClick={() => addRemoveCard(cardItem, !!cardItem.enabled)}>
+    return <div className="w-full h-full flex justify-content-center align-items-center">
       <Card
         frontImg={cardItem.frontImg}
         backImg={cardItem.backImg}
         turnable={false}
         enabled={cardItem.enabled}
-        className="w-8rem h-12rem" />
+        className="w-8rem h-12rem"
+        onClick={() => addRemoveCard(cardItem, !!cardItem.enabled)} />
     </div>
   }
 

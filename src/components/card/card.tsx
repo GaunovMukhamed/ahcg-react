@@ -9,14 +9,21 @@ interface CardProps {
   turnable?: boolean;
   className?: string;
   style?: CSSProperties; 
+  onClick?: (event: SyntheticEvent) => void;
 }
 
-const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnable = true, enabled = true }) => {
+const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnable = true, enabled = true, onClick }) => {
 
   const [characterCardFlipped, setCharacterCardFlipped] = useState<Boolean>(false);
 
-  const flipCard = (event: any) => {
-    if(turnable && event.target.tagName === 'IMG') setCharacterCardFlipped(!characterCardFlipped);
+  const onCardClick = (event: any) => {
+    if(event.target.tagName === 'IMG') {
+      if(turnable) {
+        setCharacterCardFlipped(!characterCardFlipped);
+      } else {
+        if(onClick) onClick(event);
+      }
+    }
   }
 
   return(
@@ -26,7 +33,7 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnab
         ${characterCardFlipped?'flipped':''} 
         ${enabled?'':'monochrome'} 
         ${className??''}`}
-      onClick={flipCard}>
+      onClick={onCardClick}>
       <div className='w-full h-full player-card-front border-round'>
         <Image
           src={frontImg}
