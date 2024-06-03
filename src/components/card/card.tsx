@@ -31,12 +31,12 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnab
       style={style}
       className={`card relative 
         ${characterCardFlipped?'flipped':''} 
-        ${enabled?'':'monochrome'} 
         ${className??''}`}
       onClick={onCardClick}>
       <div className='w-full h-full player-card-front border-round'>
         <Image
           src={frontImg}
+          className={enabled?'':'monochrome'}
           width={'100%'}
           height={'100%'}
           alt="character-card"
@@ -46,6 +46,7 @@ const Card: React.FC<CardProps> = ({ frontImg, backImg, className, style, turnab
       <div className='w-full h-full player-card-back'>
         <Image
           src={backImg}
+          className={enabled?'':'monochrome'}
           width={'100%'}
           height={'100%'}
           alt="character-card"
