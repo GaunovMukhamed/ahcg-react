@@ -6,6 +6,7 @@ import { CharacterSelector } from "./components/character-selector/character-sel
 import { ScenarioSelector } from "./components/scenario-selector/scenario-selector";
 import { GameScene } from "./components/game-scene/game-scene";
 import { DeckBuilder } from "./components/deck-builder/deck-builder";
+import { SettingsButton } from "./components/settings-button/settings-button";
 
 const GamePage: React.FC<any> = () => {
 
@@ -18,7 +19,8 @@ const GamePage: React.FC<any> = () => {
   }, [])
 
   return(
-    <div className="w-full h-full bg-gray-900 relative flex flex-column p-2">
+    <div className="realtive w-full h-full bg-gray-900 relative flex flex-column p-2">
+      <SettingsButton />
       {gameState === null?<Spinner />:''}
       {gameState === 0?<CharacterSelector />:''}
       {gameState === 1?<ScenarioSelector />: ''}
