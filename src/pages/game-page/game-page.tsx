@@ -11,7 +11,6 @@ import { SettingsButton } from "./components/settings-button/settings-button";
 const GamePage: React.FC<any> = () => {
 
   const dispatch = useAppDispatch();
-
   const gameState = useAppSelector((state) => state.general.gameState);
 
   useEffect(() => {
