@@ -50,7 +50,7 @@ const ScenarioSelector: React.FC<any> = () => {
           {scenarios.map((sc: Scenario, i: number) => {
             return <div
               key={i}
-              className={'shadow-6 p-2 cursor-pointer surface-100 border-round '+(scenario===sc.id?'bg-primary':'')}
+              className={'w-full h-min shadow-6 p-2 cursor-pointer surface-100 border-round '+(scenario===sc.id?'bg-primary':'')}
               onClick={() => setScenario(sc.id)}>{sc.name}</div>
           })}
         </Scroller>
