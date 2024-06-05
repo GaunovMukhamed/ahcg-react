@@ -2,7 +2,7 @@
 import { Button } from 'primereact/button';
 import { Menu } from 'primereact/menu';
 import { MenuItem } from 'primereact/menuitem';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { PrimeIcons } from 'primereact/api';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +11,20 @@ const SettingsButton: React.FC<any> = () => {
 
   const menuLeft = useRef<Menu>(null);
   const navigate = useNavigate();
+  const [fullscreen, setFullscreen] = useState<boolean>(false);
 
   const items: MenuItem[] = [
     {
       label: 'Опции',
       items: [
+        {
+          label: fullscreen ? 'Уменьшить' : 'На весь экран',
+          icon: `pi ${fullscreen ? 'pi-arrow-down-left-and-arrow-up-right-to-center' : 'pi-arrow-up-right-and-arrow-down-left-from-center'}`,
+          command: () => {
+            setFullscreen(!fullscreen);
+            fullscreen ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+          }
+        },
         {
           label: 'Выйти',
           icon: PrimeIcons.SIGN_OUT,
