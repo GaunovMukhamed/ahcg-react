@@ -9,13 +9,21 @@ interface CardLineProps {
 const CardLine: React.FC<CardLineProps> = ({className = ''}) => {
   return(
     <div className={"w-full h-full border-1 border-primary border-round p-1 surface-ground "+className}>
-      <ScrollPanel className="w-full h-full">
+      <ScrollPanel style={{ width: '100%', maxWidth: '100%', overflowY: 'hidden' }} className="h-full">
         <Card 
-          style={{ width: '3.8rem' }}
+          style={{ width: '3.8rem', minWidth: '3.8rem' }}
           frontImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000"
           backImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000" />
         <Card 
-          style={{ width: '3.8rem' }}
+          style={{ width: '3.8rem', minWidth: '3.8rem' }}  
+          frontImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000"
+          backImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000" />
+        <Card 
+          style={{ width: '3.8rem', minWidth: '3.8rem' }}  
+          frontImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000"
+          backImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000" />
+        <Card 
+          style={{ width: '3.8rem', minWidth: '3.8rem' }}  
           frontImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000"
           backImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000" />
       </ScrollPanel>

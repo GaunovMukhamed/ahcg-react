@@ -5,6 +5,7 @@ import { Card } from '../../../../../components/card/card';
 import { CardLine } from '../../../../../components/card-line/card-line';
 import { Deck } from '../../../../../components/deck/deck';
 import { Token } from '../../../../../components/token/token';
+import { DecksPanel } from './decks-panel';
 
 const CharacterPanel: React.FC<any> = () => {
 
@@ -25,13 +26,13 @@ const CharacterPanel: React.FC<any> = () => {
           frontImg={characterInfo.character?.frontImg??''}
           backImg={characterInfo.character?.backImg??''} />  
       </div>
-      <div className='flex-1 flex align-items-center'>
-        <div className='flex-1 flex flex-column mr-2'>
-          <CardLine className='mb-2 h-6rem'/> 
+      <div style={{ width: 'calc(100% - 14rem)' }} className='flex'>
+        <div className='w-full flex flex-column mr-2'>
+          <CardLine className='h-6rem mb-2'/> 
           <CardLine className='h-6rem' /> 
         </div>
-        <Deck shirtImg="https://drive.google.com/thumbnail?id=1VDYXcXVPajHRu2miFlbDxUf2Ka-6aHtM&sz=w1000" />
       </div>
+      <DecksPanel style={{ top: '-9.2rem' }} className='absolute right-0' />
     </div>
   )
 }

@@ -3,11 +3,12 @@ import { Image } from 'primereact/image';
 interface DeckProps {
   shirtImg: string;
   dropImg?: string;
+  className?: string;
 }
 
-const Deck: React.FC<DeckProps> = ({ shirtImg, dropImg }) => {
+const Deck: React.FC<DeckProps> = ({ shirtImg, dropImg, className = '' }) => {
   return(
-    <div className='flex'>
+    <div className={'flex '+className}>
       <Image
         src={shirtImg}
         imageClassName='w-3rem h-4rem mr-2 cursor-pointer'
