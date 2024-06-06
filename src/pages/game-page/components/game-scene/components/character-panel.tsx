@@ -6,14 +6,19 @@ import { CardLine } from '../../../../../components/card-line/card-line';
 import { Deck } from '../../../../../components/deck/deck';
 import { Token } from '../../../../../components/token/token';
 import { DecksPanel } from './decks-panel';
+import { useState } from 'react';
 
 const CharacterPanel: React.FC<any> = () => {
 
   const login: string = getLoginFromStorage()!;
   const characterInfo = useAppSelector((state) => state.general.players[login]);
 
+  const [showPanel, setShowPanel] = useState<boolean>(true);
+
   return(
-    <div className='relative h-min pt-2 border-top-1 border-primary flex overflow-visible z-1'>
+    <div
+      className='relative h-min pt-2 border-top-1 border-primary flex overflow-visible z-1'
+      style={{ transform: showPanel?'translateY(0)':'translateY(14rem)' }}>
       <div className='w-14rem h-min flex flex-column mr-2 justify-content-between align-items-center'>
         <div className='w-full mb-2 flex justify-content-between'>
           <Token className='w-3rem h-3rem' imgUrl='https://drive.google.com/thumbnail?id=1aU8GwFcHLAAzekpKxc-YBPkxSJsM4AWZ&sz=w1000' />
@@ -33,6 +38,12 @@ const CharacterPanel: React.FC<any> = () => {
         </div>
       </div>
       <DecksPanel style={{ top: '-9.8rem' }} className='absolute right-0' />
+      <div
+        className='border-1 border-primary border-round border-bottom-none border-noround-bottom p-1 cursor-pointer'
+        style={{ position: 'absolute', left: '50%', top: '-2.2rem' }}
+        onClick={() => setShowPanel(!showPanel)}>
+        <i className={`pi ${showPanel?'pi-angle-down':'pi-angle-up'}`}></i>
+      </div>
     </div>
   )
 }
