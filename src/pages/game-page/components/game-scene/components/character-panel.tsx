@@ -32,7 +32,7 @@ const CharacterPanel: React.FC<any> = () => {
           <CardLine className='h-6rem' /> 
         </div>
       </div>
-      <DecksPanel style={{ top: '-9.2rem' }} className='absolute right-0' />
+      <DecksPanel style={{ top: '-9.8rem' }} className='absolute right-0' />
     </div>
   )
 }
